@@ -60,7 +60,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
         btn_divide.setOnClickListener {
-            display.setText(display.text.toString() + btn_1.text.toString())
+            try {
+                var lastChar = parseDouble(display.text.last().toString())
+                display.setText(display.text.toString() + btn_divide.text.toString())
+            } catch (e: NumberFormatException) {
+                // Do nothing...
+            } catch (e: NoSuchElementException) {
+                // Do nothing...
+            }
         }
         btn_multiply.setOnClickListener {
             display.setText(display.text.toString() + btn_1.text.toString())
