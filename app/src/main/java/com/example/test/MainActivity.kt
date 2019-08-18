@@ -76,7 +76,14 @@ class MainActivity : AppCompatActivity() {
             display.setText(display.text.toString() + btn_1.text.toString())
         }
         btn_add.setOnClickListener {
-            display.setText(display.text.toString() + btn_1.text.toString())
+            try {
+                var lastChar = parseDouble(display.text.last().toString())
+                display.setText(display.text.toString() + btn_add.text.toString())
+            } catch (e: NumberFormatException) {
+                // Do nothing...
+            } catch (e: NoSuchElementException) {
+                // Do nothing...
+            }
         }
         btn_nun.setOnClickListener {
             display.setText(display.text.toString() + btn_1.text.toString())
