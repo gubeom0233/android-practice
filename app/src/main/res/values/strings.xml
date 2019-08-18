@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Test</string>
+
+    <string name="cal_btn_c">C</string>
+    <string name="cal_btn_bracket">()</string>
+    <string name="cal_btn_percentage">%</string>
+    <string name="cal_btn_divide">%</string>
+    <string name="cal_btn_multiply">X</string>
+    <string name="cal_btn_sub">-</string>
+    <string name="cal_btn_add">+</string>
+    <string name="cal_btn_nun">=</string>
+    <string name="cal_btn_change">+/-</string>
+    <string name="cal_btn_zero">0</string>
+    <string name="cal_btn_dot">.</string>
+    <string name="cal_btn_1">1</string>
+    <string name="cal_btn_2">2</string>
+    <string name="cal_btn_3">3</string>
+    <string name="cal_btn_4">4</string>
+    <string name="cal_btn_5">5</string>
+    <string name="cal_btn_6">6</string>
+    <string name="cal_btn_7">7</string>
+    <string name="cal_btn_8">8</string>
+    <string name="cal_btn_9">9</string>
+
+    <string name="cal_extra_bracket_open">(</string>
+    <string name="cal_extra_bracket_close">)</string>
+
+</resources>
