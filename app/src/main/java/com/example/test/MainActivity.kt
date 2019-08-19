@@ -70,10 +70,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
         btn_multiply.setOnClickListener {
-            display.setText(display.text.toString() + btn_1.text.toString())
+            try {
+                var lastChar = parseDouble(display.text.last().toString())
+                display.setText(display.text.toString() + btn_multiply.text.toString())
+            } catch (e: NumberFormatException) {
+                // Do nothing...
+            } catch (e: NoSuchElementException) {
+                // Do nothing...
+            }
         }
         btn_sub.setOnClickListener {
-            display.setText(display.text.toString() + btn_1.text.toString())
+            try {
+                var lastChar = parseDouble(display.text.last().toString())
+                display.setText(display.text.toString() + btn_sub.text.toString())
+            } catch (e: NumberFormatException) {
+                // Do nothing...
+            } catch (e: NoSuchElementException) {
+                // Do nothing...
+            }
         }
         btn_add.setOnClickListener {
             try {
@@ -86,7 +100,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
         btn_nun.setOnClickListener {
-            display.setText(display.text.toString() + btn_1.text.toString())
+            try {
+                var lastChar = parseDouble(display.text.last().toString())
+                display.setText(this.calculate(display.text.toString()))
+            } catch (e: NumberFormatException) {
+                // Do nothing...
+            } catch (e: NoSuchElementException) {
+                // Do nothing...
+            }
         }
         btn_change.setOnClickListener {
             display.setText(display.text.toString() + btn_1.text.toString())
@@ -125,5 +146,27 @@ class MainActivity : AppCompatActivity() {
             display.setText(display.text.toString() + btn_zero.text.toString())
         }
 
+    }
+
+    // reference: https://wayhome25.github.io/cs/2017/04/18/cs-22/
+    fun calculate(exp: String): String {
+        var letterArr = emptyArray<String>()
+        var numberTemp = ""
+        var ret = 0
+
+        for (letter in exp) {
+            if (letter.isDigit())
+                numberTemp += letter
+            else {
+                letterArr.plus(numberTemp)
+                letterArr.plus(letter.toString())
+            }
+        }
+
+        for (str in letterArr) {
+            if (str.length == 1) {
+
+            }
+        }
     }
 }
