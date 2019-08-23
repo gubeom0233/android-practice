@@ -9,6 +9,8 @@ import android.widget.EditText
 import androidx.annotation.IntegerRes
 import java.lang.Double.parseDouble
 
+import com.example.test.Calculator
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,7 +103,6 @@ class MainActivity : AppCompatActivity() {
         }
         btn_nun.setOnClickListener {
             try {
-                var lastChar = parseDouble(display.text.last().toString())
                 display.setText(this.calculate(display.text.toString()))
             } catch (e: NumberFormatException) {
                 // Do nothing...
@@ -150,23 +151,12 @@ class MainActivity : AppCompatActivity() {
 
     // reference: https://wayhome25.github.io/cs/2017/04/18/cs-22/
     fun calculate(exp: String): String {
-        var letterArr = emptyArray<String>()
-        var numberTemp = ""
-        var ret = 0
 
-        for (letter in exp) {
-            if (letter.isDigit())
-                numberTemp += letter
-            else {
-                letterArr.plus(numberTemp)
-                letterArr.plus(letter.toString())
-            }
-        }
+        val calc = Calculator(exp)
+        Log.d("wwwww", calc.get_postfix_exp())
+        var ret = calc.calculate()
+        Log.d("wwwwww", ret.toString())
 
-        for (str in letterArr) {
-            if (str.length == 1) {
-
-            }
-        }
+        return ret as String
     }
 }
