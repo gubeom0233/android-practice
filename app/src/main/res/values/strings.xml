@@ -4,8 +4,8 @@
     <string name="cal_btn_c">C</string>
     <string name="cal_btn_bracket">()</string>
     <string name="cal_btn_percentage">%</string>
-    <string name="cal_btn_divide">%</string>
-    <string name="cal_btn_multiply">X</string>
+    <string name="cal_btn_divide">/</string>
+    <string name="cal_btn_multiply">*</string>
     <string name="cal_btn_sub">-</string>
     <string name="cal_btn_add">+</string>
     <string name="cal_btn_nun">=</string>

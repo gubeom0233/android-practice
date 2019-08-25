@@ -6,18 +6,14 @@ import android.util.Log
 import android.view.Gravity
 import android.widget.Button
 import android.widget.EditText
-import androidx.annotation.IntegerRes
 import java.lang.Double.parseDouble
 
-import com.example.test.Calculator
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val TAG = "wtf"
 
         val display = findViewById(R.id.txt_input) as EditText
         val btn_clear = findViewById(R.id.btn_clear) as Button
@@ -150,13 +146,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     // reference: https://wayhome25.github.io/cs/2017/04/18/cs-22/
-    fun calculate(exp: String): String {
+    private fun calculate(exp: String): String {
 
         val calc = Calculator(exp)
-        Log.d("wwwww", calc.get_postfix_exp())
-        var ret = calc.calculate()
-        Log.d("wwwwww", ret.toString())
+        val convertedToPostfix = calc.get_postfix_exp()
+        val ret = calc.calculate()
 
-        return ret as String
+        return ret
     }
 }

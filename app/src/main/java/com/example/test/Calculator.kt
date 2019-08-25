@@ -1,6 +1,6 @@
 package com.example.test
+import android.util.Log
 import java.util.Stack
-import kotlin.math.exp
 
 class Calculator(_org_exp : String) {
 
@@ -13,8 +13,7 @@ class Calculator(_org_exp : String) {
         postfix_exp = ""
     }
 
-
-    fun get_weight(oprt : Char): Int {
+    private fun get_weight(oprt : Char): Int {
         when (oprt) {
             '*', '/' -> return 9
             '+', '-' -> return 7
@@ -23,21 +22,25 @@ class Calculator(_org_exp : String) {
         }
     }
 
-    fun convert_to_postfix(){
-        var exp_list = ArrayList<Char>()
+    private fun convert_to_postfix() {
+        var exp_list = ArrayList<String>()
         var oprt_stack = Stack<Char>()
+        var numTemp = ""
 
         for (ch in org_exp) {
             if (ch.isDigit()) {
-                exp_list.plus(ch)
+                numTemp += ch.toString()
             } else {
+                exp_list.add(numTemp)
+                numTemp = ""
+
                 if (ch == '(' || oprt_stack.empty()) {
                     oprt_stack.push(ch)
                 } else if (ch == ')') {
                     var op = oprt_stack.pop()
 
                     while (op != '(') {
-                        exp_list.plus(op)
+                        exp_list.add(op.toString())
                         op = oprt_stack.pop()
                     }
                 } else if (get_weight(ch) > get_weight(oprt_stack.peek())) {
@@ -45,18 +48,23 @@ class Calculator(_org_exp : String) {
                 } else {
                     while (! oprt_stack.empty()
                         && (get_weight(ch) <= get_weight(oprt_stack.peek()))) {
-                        exp_list.plus(oprt_stack.pop())
+                        exp_list.add(oprt_stack.pop().toString())
                     }
                     oprt_stack.push(ch)
                 }
             }
         }
 
-        while (! oprt_stack.empty()) {
-            exp_list.plus(oprt_stack.pop())
+        if (! numTemp.isEmpty()) {
+            exp_list.add(numTemp)
         }
 
-        postfix_exp += exp_list
+        while (! oprt_stack.empty()) {
+            exp_list.add(oprt_stack.pop().toString())
+        }
+
+        Log.d("dgb", "exp_list: " + exp_list)
+        postfix_exp = exp_list.joinToString(" ")
     }
 
     fun get_postfix_exp(): String {
@@ -66,7 +74,10 @@ class Calculator(_org_exp : String) {
         return postfix_exp
     }
 
-    fun calc_two_oprd(oprd1: Int, oprd2: Int, oprt: Char): Int {
+    private fun calc_two_oprd(_oprd1: String, _oprd2: String, oprt: Char): Int {
+        var oprd1 = _oprd1.toInt()
+        var oprd2 = _oprd2.toInt()
+
         when (oprt) {
             '+' -> return oprd1 + oprd2
             '-' -> return oprd1 - oprd2
@@ -76,17 +87,30 @@ class Calculator(_org_exp : String) {
         }
     }
 
-    fun calculate(): Int {
-        var oprd_stack = Stack<Int>()
+    fun calculate(): String {
+        var oprd_stack = Stack<String>()
+        var numTemp = ""
 
+        Log.d("dgb", "postfix_exp: " + postfix_exp)
+        // e.g) postfix_exp == "30 60 +"
         for (ch in postfix_exp) {
             if (ch.isDigit()) {
-                oprd_stack.push(ch as Int)
+                numTemp += ch.toString()
             } else {
-                var oprd2 = oprd_stack.pop()
-                var oprd1 = oprd_stack.pop()
-
-                oprd_stack.push(calc_two_oprd(oprd1, oprd2, ch))
+                if (ch == ' ') {
+                    if (numTemp.isNotEmpty()) {
+                        oprd_stack.push(numTemp)
+                        numTemp = ""
+                    }
+                } else {
+                    Log.d("dgb", "initial oprd_stack: " + oprd_stack.toString())
+                    val oprd2 = oprd_stack.pop()
+                    val oprd1 = oprd_stack.pop()
+                    Log.d("dgb", "oprd2: " + oprd2 + "\toprd1: " + oprd1)
+                    Log.d("dgb", "before oprd_stack: " + oprd_stack.toString())
+                    oprd_stack.push(calc_two_oprd(oprd1, oprd2, ch).toString())
+                    Log.d("dgb", "after oprd_stack: " + oprd_stack.toString())
+                }
             }
         }
 
