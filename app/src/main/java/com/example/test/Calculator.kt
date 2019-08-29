@@ -28,7 +28,7 @@ class Calculator(_org_exp : String) {
         var numTemp = ""
 
         for (ch in org_exp) {
-            if (ch.isDigit()) {
+            if (ch.isDigit() || ch == '.') {
                 numTemp += ch.toString()
             } else {
                 exp_list.add(numTemp)
@@ -74,9 +74,9 @@ class Calculator(_org_exp : String) {
         return postfix_exp
     }
 
-    private fun calc_two_oprd(_oprd1: String, _oprd2: String, oprt: Char): Int {
-        var oprd1 = _oprd1.toInt()
-        var oprd2 = _oprd2.toInt()
+    private fun calc_two_oprd(_oprd1: String, _oprd2: String, oprt: Char): Double {
+        var oprd1 = _oprd1.toDouble()
+        var oprd2 = _oprd2.toDouble()
 
         when (oprt) {
             '+' -> return oprd1 + oprd2
@@ -94,7 +94,7 @@ class Calculator(_org_exp : String) {
         Log.d("dgb", "postfix_exp: " + postfix_exp)
         // e.g) postfix_exp == "30 60 +"
         for (ch in postfix_exp) {
-            if (ch.isDigit()) {
+            if (ch.isDigit() || ch == '.') {
                 numTemp += ch.toString()
             } else {
                 if (ch == ' ') {

@@ -41,12 +41,30 @@ class MainActivity : AppCompatActivity() {
         btn_clear.setOnClickListener {
             display.setText("")
         }
+
         btn_bracket.setOnClickListener {
-//            var exists = display.text.toString()
-//            var bracketCount = 0
-//            exists.
-//            display.setText(display.text.toString() + btn_multiply.text.toString() + btn_bracket.text.toString())
+            var exists = display.text.toString()
+            var newInput = '?'
+            var bracketCount = 0
+
+            for (ch in exists) {
+                if (ch == '(')
+                    bracketCount += 1
+                else if (ch == ')')
+                    bracketCount -= 1
+            }
+
+            if (bracketCount > 0 && exists.last().isDigit()) {
+                newInput = ')'
+            } else
+                newInput = '('
+
+            if ((exists.last().isDigit() || exists.last() == ')') && newInput == '(')
+                display.setText(exists + '*' + newInput)
+            else
+                display.setText(exists + newInput)
         }
+
         btn_percentage.setOnClickListener {
             try {
                 var lastChar = parseDouble(display.text.last().toString())
@@ -57,46 +75,35 @@ class MainActivity : AppCompatActivity() {
                 // Do nothing...
             }
         }
+
         btn_divide.setOnClickListener {
-            try {
-                var lastChar = parseDouble(display.text.last().toString())
-                display.setText(display.text.toString() + btn_divide.text.toString())
-            } catch (e: NumberFormatException) {
-                // Do nothing...
-            } catch (e: NoSuchElementException) {
-                // Do nothing...
-            }
+            var exists = display.text.toString()
+
+            if (exists.last().isDigit() || exists.last() == ')')
+                display.setText(exists + btn_divide.text[0])
         }
+
         btn_multiply.setOnClickListener {
-            try {
-                var lastChar = parseDouble(display.text.last().toString())
-                display.setText(display.text.toString() + btn_multiply.text.toString())
-            } catch (e: NumberFormatException) {
-                // Do nothing...
-            } catch (e: NoSuchElementException) {
-                // Do nothing...
-            }
+            var exists = display.text.toString()
+
+            if (exists.last().isDigit() || exists.last() == ')')
+                display.setText(exists + btn_multiply.text[0])
         }
+
         btn_sub.setOnClickListener {
-            try {
-                var lastChar = parseDouble(display.text.last().toString())
-                display.setText(display.text.toString() + btn_sub.text.toString())
-            } catch (e: NumberFormatException) {
-                // Do nothing...
-            } catch (e: NoSuchElementException) {
-                // Do nothing...
-            }
+            var exists = display.text.toString()
+
+            if (exists.last().isDigit() || exists.last() == ')')
+                display.setText(exists + btn_sub.text[0])
         }
+
         btn_add.setOnClickListener {
-            try {
-                var lastChar = parseDouble(display.text.last().toString())
-                display.setText(display.text.toString() + btn_add.text.toString())
-            } catch (e: NumberFormatException) {
-                // Do nothing...
-            } catch (e: NoSuchElementException) {
-                // Do nothing...
-            }
+            var exists = display.text.toString()
+
+            if (exists.last().isDigit() || exists.last() == ')')
+                display.setText(exists + btn_add.text[0])
         }
+
         btn_nun.setOnClickListener {
             try {
                 display.setText(this.calculate(display.text.toString()))
@@ -106,43 +113,75 @@ class MainActivity : AppCompatActivity() {
                 // Do nothing...
             }
         }
+
         btn_change.setOnClickListener {
-            display.setText(display.text.toString() + btn_1.text.toString())
-        }
-        btn_dot.setOnClickListener {
-            display.setText(display.text.toString() + btn_1.text.toString())
-        }
-        btn_1.setOnClickListener {
-            display.setText(display.text.toString() + btn_1.text.toString())
-        }
-        btn_2.setOnClickListener {
-            display.setText(display.text.toString() + btn_2.text.toString())
-        }
-        btn_3.setOnClickListener {
-            display.setText(display.text.toString() + btn_3.text.toString())
-        }
-        btn_4.setOnClickListener {
-            display.setText(display.text.toString() + btn_4.text.toString())
-        }
-        btn_5.setOnClickListener {
-            display.setText(display.text.toString() + btn_5.text.toString())
-        }
-        btn_6.setOnClickListener {
-            display.setText(display.text.toString() + btn_6.text.toString())
-        }
-        btn_7.setOnClickListener {
-            display.setText(display.text.toString() + btn_7.text.toString())
-        }
-        btn_8.setOnClickListener {
-            display.setText(display.text.toString() + btn_8.text.toString())
-        }
-        btn_9.setOnClickListener {
-            display.setText(display.text.toString() + btn_9.text.toString())
-        }
-        btn_zero.setOnClickListener {
-            display.setText(display.text.toString() + btn_zero.text.toString())
+
         }
 
+        btn_dot.setOnClickListener {
+            var exists = display.text.toString()
+
+            if (exists.last().isDigit())
+                display.setText(exists + btn_dot.text[0])
+        }
+
+        btn_1.setOnClickListener {
+            var exists = display.text.toString()
+
+            display.setText(exists + commonNumericInput(exists) + btn_1.text.toString())
+        }
+        btn_2.setOnClickListener {
+            var exists = display.text.toString()
+
+            display.setText(exists + commonNumericInput(exists) + btn_2.text.toString())
+        }
+        btn_3.setOnClickListener {
+            var exists = display.text.toString()
+
+            display.setText(exists + commonNumericInput(exists) + btn_3.text.toString())
+        }
+        btn_4.setOnClickListener {
+            var exists = display.text.toString()
+
+            display.setText(exists + commonNumericInput(exists) + btn_4.text.toString())
+        }
+        btn_5.setOnClickListener {
+            var exists = display.text.toString()
+
+            display.setText(exists + commonNumericInput(exists) + btn_5.text.toString())
+        }
+        btn_6.setOnClickListener {
+            var exists = display.text.toString()
+
+            display.setText(exists + commonNumericInput(exists) + btn_6.text.toString())
+        }
+        btn_7.setOnClickListener {
+            var exists = display.text.toString()
+
+            display.setText(exists + commonNumericInput(exists) + btn_7.text.toString())
+        }
+        btn_8.setOnClickListener {
+            var exists = display.text.toString()
+
+            display.setText(exists + commonNumericInput(exists) + btn_8.text.toString())
+        }
+        btn_9.setOnClickListener {
+            var exists = display.text.toString()
+
+            display.setText(exists + commonNumericInput(exists) + btn_9.text.toString())
+        }
+        btn_zero.setOnClickListener {
+            var exists = display.text.toString()
+
+            display.setText(exists + commonNumericInput(exists) + btn_zero.text.toString())
+        }
+    }
+
+    private fun commonNumericInput(exists: String): Char {
+        if (exists.isNotEmpty() && exists.last() == ')')
+            return '*'
+
+        return '\u0000'
     }
 
     // reference: https://wayhome25.github.io/cs/2017/04/18/cs-22/
