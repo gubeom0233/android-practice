@@ -47,22 +47,29 @@ class MainActivity : AppCompatActivity() {
             var newInput = '?'
             var bracketCount = 0
 
-            for (ch in exists) {
-                if (ch == '(')
-                    bracketCount += 1
-                else if (ch == ')')
-                    bracketCount -= 1
+            if (exists.isNotEmpty()) {
+                for (ch in exists) {
+                    if (ch == '(')
+                        bracketCount += 1
+                    else if (ch == ')')
+                        bracketCount -= 1
+                }
+
+                if (bracketCount > 0 && exists.last().isDigit()) {
+                    newInput = ')'
+                } else if (bracketCount > 0 && exists.last() == ')') {
+                    newInput = ')'
+                } else {
+                    newInput = '('
+                }
+
+                if ((exists.last().isDigit() || exists.last() == ')') && newInput == '(')
+                    display.setText(exists + '*' + newInput)
+                else
+                    display.setText(exists + newInput)
+            } else {
+                display.setText('('.toString())
             }
-
-            if (bracketCount > 0 && exists.last().isDigit()) {
-                newInput = ')'
-            } else
-                newInput = '('
-
-            if ((exists.last().isDigit() || exists.last() == ')') && newInput == '(')
-                display.setText(exists + '*' + newInput)
-            else
-                display.setText(exists + newInput)
         }
 
         btn_percentage.setOnClickListener {
@@ -188,7 +195,7 @@ class MainActivity : AppCompatActivity() {
     private fun calculate(exp: String): String {
 
         val calc = Calculator(exp)
-        val convertedToPostfix = calc.get_postfix_exp()
+        calc.get_postfix_exp()
         val ret = calc.calculate()
 
         return ret
